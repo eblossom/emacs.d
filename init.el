@@ -7,7 +7,8 @@
         ;;("marmalade"   . "http://marmalade-repo.org/packages/")
 	))
 
-(defvar my-packages '(better-defaults ergoemacs-mode magit python-mode php-mode yaml-mode))
+(defvar my-packages 
+  '(better-defaults ergoemacs-mode magit python-mode php-mode yaml-mode))
 
 
 (package-initialize)
@@ -23,3 +24,9 @@
 (setq ergoemacs-keyboard-layout "us")
 (ergoemacs-mode 1)
 
+;;----------------------------------------------------------------------------
+;; Allow access from emacsclient
+;;----------------------------------------------------------------------------
+(require 'server)
+(unless (server-running-p)
+  (server-start))
