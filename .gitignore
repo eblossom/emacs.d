@@ -1,5 +1,13 @@
 /elpa
 /ido.last
 /places
-
 /var
+/backups
+.smex-items
+*~$
+.recentf
+ido.last
+cider-history
+projectile-bookmarks.eld
+projectile.cache
+auto-save-list

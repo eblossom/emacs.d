@@ -8,7 +8,7 @@
 (menu-bar-mode -1)
 
 ;; Show line numbers
-(global-linum-mode)
+;;(global-linum-mode)
 
 ;; You can uncomment this to remove the graphical toolbar at the top. After
 ;; awhile, you won't need the toolbar.
@@ -26,7 +26,8 @@
 ;; for a more technical explanation.
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
 (add-to-list 'load-path "~/.emacs.d/themes")
-(load-theme 'tomorrow-night-bright t)
+;;(load-theme 'tomorrow-night-bright t)
+(load-theme 'misterioso t)
 
 ;; increase font size for better readability
 (set-face-attribute 'default nil :height 140)
@@ -57,7 +58,7 @@
       mouse-yank-at-point t)
 
 ;; No cursor blinking, it's distracting
-(blink-cursor-mode 0)
+;;(blink-cursor-mode 0)
 
 ;; full path in title bar
 (setq-default frame-title-format "%b (%f)")
