@@ -1,10 +1,11 @@
 (require 'package)
-(add-to-list 'package-archives
-             '("marmalade" . "http://marmalade-repo.org/packages/") t)
+(add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
 (add-to-list 'package-archives
              '("tromey" . "http://tromey.com/elpa/") t)
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.milkbox.net/packages/") t)
+(add-to-list 'package-archives
+             '("marmalade" . "http://marmalade-repo.org/packages/") t)
 
 ;; (setq package-archives
 ;;       '(("gnu"         . "http://elpa.gnu.org/packages/")
@@ -65,11 +66,16 @@
     tagedit
 
     ;; git integration
-    magit
+    ;;magit
 
     python-mode
     yaml-mode
     ;; php-mode
+
+    cmake-mode
+    haskell-mode
+    ggtags
+    org
     ))
 
 ;; (defvar my-packages
@@ -169,12 +175,36 @@
 ;(add-to-list 'auto-mode-alist '("\\.inc\\'" . php-mode))
 
 
+(require 'cmake-mode)
+(add-to-list 'auto-mode-alist '("\\CMakeLists\\.txt\\'" . cmake-mode))
+(add-to-list 'auto-mode-alist '("\\.cmake\\'" . cmake-mode))
+
 ;;----------------------------------------------------------------------------
 ;; Allow access from emacsclient
 ;;----------------------------------------------------------------------------
 (require 'server)
 (unless (server-running-p)
   (server-start))
+
+
+;; Common Lisp support
+(load (expand-file-name "~/quicklisp/slime-helper.el"))
+(setq inferior-lisp-program "sbcl")
+
+(global-set-key "\C-cs" 'slime-selector)
+
+;; use ggtags for M-. M-, C-M-.
+
+(add-hook 'c-mode-common-hook
+          (lambda ()
+            (when (derived-mode-p 'c-mode 'c++-mode 'java-mode)
+              (ggtags-mode 1))))
+
+;; undo ggtags override of M-< and M->
+'(let ((map ggtags-navigation-map))
+  (define-key map "\M->" nil)
+  (define-key map "\M-<" nil))
+
 
 
 (custom-set-variables
@@ -184,7 +214,13 @@
  ;; If there is more than one, they won't work right.
  '(ansi-color-faces-vector
    [default default default italic underline success warning error])
+ '(ansi-color-names-vector
+   ["#2d3743" "#ff4242" "#74af68" "#dbdb95" "#34cae2" "#008b8b" "#00ede1" "#e1e1e0"])
+ '(coffee-tab-width 2)
  '(custom-enabled-themes (quote (misterioso)))
+ '(custom-safe-themes
+   (quote
+    ("934a85d32fbefd8c29bfb0a089835033866da6c01f446d86d36999b9d0eb2246" default)))
  '(package-selected-packages
    (quote
     (cider clojure-mode projectile yaml-mode undo-tree python-mode php-mode persistent-soft magit exec-path-from-shell better-defaults))))

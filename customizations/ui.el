@@ -30,8 +30,10 @@
 (load-theme 'misterioso t)
 
 ;; increase font size for better readability
-;;(set-face-attribute 'default nil :height 140)
-(set-face-attribute 'default nil :height 125)
+;;(set-face-attribute 'default nil :height 140)  ; mac
+;;(set-face-attribute 'default nil :height 125)  ; work
+(set-face-attribute 'default nil :height 110)    ; home dell
+;;(set-face-attribute 'default nil :height 100)    ; home dell
 
 ;; Uncomment the lines below by removing semicolons and play with the
 ;; values in order to set the width (in characters wide) and height

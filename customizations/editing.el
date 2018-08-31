@@ -69,5 +69,19 @@
       (ns-get-selection-internal 'CLIPBOARD)
     (quit nil)))
 
+(defun revert-buffer-safely ()
+  "Revert a buffer without prompting if it's not modified."
+  (interactive)
+  (revert-buffer t (not (buffer-modified-p)) t))
+
+(global-set-key (kbd "<f6>") 'revert-buffer-safely)
 (setq electric-indent-mode t)
 (setq c-tab-always-indent nil)
+
+(add-hook 'c-mode-hook
+          (lambda ()
+            (add-to-list 'write-file-functions 'delete-trailing-whitespace)))
+
+(add-hook 'python-mode-hook
+          (lambda ()
+            (add-to-list 'write-file-functions 'delete-trailing-whitespace)))
