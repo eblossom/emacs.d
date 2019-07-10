@@ -77,6 +77,7 @@
     ggtags
     org
     julia-mode
+    julia-repl
     markdown-mode
     slime
     ))
