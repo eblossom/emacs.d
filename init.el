@@ -78,6 +78,7 @@
     org
     julia-mode
     markdown-mode
+    slime
     ))
 
 ;; (defvar my-packages
