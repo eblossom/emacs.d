@@ -3,6 +3,8 @@
 /places
 /var
 /backups
+/session.*
+/tramp
 .smex-items
 *~$
 .recentf

@@ -1,11 +1,11 @@
 (require 'package)
 (add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
 (add-to-list 'package-archives
-             '("tromey" . "http://tromey.com/elpa/") t)
+             '("tromey" . "https://tromey.com/elpa/") t)
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.milkbox.net/packages/") t)
-(add-to-list 'package-archives
-             '("marmalade" . "http://marmalade-repo.org/packages/") t)
+;; (add-to-list 'package-archives
+;;              '("marmalade" . "http://marmalade-repo.org/packages/") t)
 
 ;; (setq package-archives
 ;;       '(("gnu"         . "http://elpa.gnu.org/packages/")
@@ -76,6 +76,8 @@
     haskell-mode
     ggtags
     org
+    julia-mode
+    markdown-mode
     ))
 
 ;; (defvar my-packages
@@ -190,6 +192,8 @@
 ;; Common Lisp support
 (load (expand-file-name "~/quicklisp/slime-helper.el"))
 (setq inferior-lisp-program "sbcl")
+(require 'slime-autoloads)
+(add-to-list 'slime-contribs 'slime-fancy)
 
 (global-set-key "\C-cs" 'slime-selector)
 
@@ -204,6 +208,10 @@
 '(let ((map ggtags-navigation-map))
   (define-key map "\M->" nil)
   (define-key map "\M-<" nil))
+
+;; Have julia mode always use julia-repl minor mode
+(require 'julia-repl)
+(add-hook 'julia-mode-hook 'julia-repl-mode)
 
 
 
@@ -223,7 +231,7 @@
     ("934a85d32fbefd8c29bfb0a089835033866da6c01f446d86d36999b9d0eb2246" default)))
  '(package-selected-packages
    (quote
-    (cider clojure-mode projectile yaml-mode undo-tree python-mode php-mode persistent-soft magit exec-path-from-shell better-defaults))))
+    (markdown-mode julia-repl julia-mode cider clojure-mode projectile yaml-mode undo-tree python-mode php-mode persistent-soft magit exec-path-from-shell better-defaults))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -231,3 +239,4 @@
  ;; If there is more than one, they won't work right.
  )
 (put 'narrow-to-region 'disabled nil)
+(put 'set-goal-column 'disabled nil)

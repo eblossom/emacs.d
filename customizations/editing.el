@@ -1,5 +1,7 @@
 ;; Customizations relating to editing a buffer.
 
+(setq enable-recursive-minibuffers t)
+
 ;; Key binding to use "hippie expand" for text autocompletion
 ;; http://www.emacswiki.org/emacs/HippieExpand
 (global-set-key (kbd "M-/") 'hippie-expand)
@@ -24,6 +26,9 @@
 (global-set-key (kbd "C-r") 'isearch-backward-regexp)
 (global-set-key (kbd "C-M-s") 'isearch-forward)
 (global-set-key (kbd "C-M-r") 'isearch-backward)
+
+(global-set-key (kbd "<f7>") 'compile)
+
 
 ;; Don't use hard tabs
 (setq-default indent-tabs-mode nil)
@@ -78,10 +83,13 @@
 (setq electric-indent-mode t)
 (setq c-tab-always-indent nil)
 
-(add-hook 'c-mode-hook
+(add-hook 'c-mode-common-hook
           (lambda ()
             (add-to-list 'write-file-functions 'delete-trailing-whitespace)))
 
 (add-hook 'python-mode-hook
           (lambda ()
             (add-to-list 'write-file-functions 'delete-trailing-whitespace)))
+
+(require 'google-c-style)
+(add-hook 'c-mode-common-hook 'google-set-c-style)
