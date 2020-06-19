@@ -1,9 +1,7 @@
 (require 'package)
 (add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
-(add-to-list 'package-archives
-             '("tromey" . "https://tromey.com/elpa/") t)
-(add-to-list 'package-archives
-             '("melpa" . "http://melpa.milkbox.net/packages/") t)
+(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
+(add-to-list 'package-archives '("tromey" . "https://tromey.com/elpa/") t)
 ;; (add-to-list 'package-archives
 ;;              '("marmalade" . "http://marmalade-repo.org/packages/") t)
 
@@ -46,6 +44,9 @@
     ;; https://github.com/clojure-emacs/cider
     cider
 
+    ;; evil is your friend
+    evil
+
     ;; allow ido usage in as many contexts as possible. see
     ;; customizations/navigation.el line 23 for a description
     ;; of ido
@@ -66,7 +67,7 @@
     tagedit
 
     ;; git integration
-    ;;magit
+    magit
 
     python-mode
     yaml-mode
@@ -80,6 +81,7 @@
     julia-repl
     markdown-mode
     slime
+    verilog-mode
     ))
 
 ;; (defvar my-packages
@@ -193,6 +195,7 @@
 
 ;; Common Lisp support
 (load (expand-file-name "~/quicklisp/slime-helper.el"))
+
 (setq inferior-lisp-program "sbcl")
 (require 'slime-autoloads)
 (add-to-list 'slime-contribs 'slime-fancy)
@@ -233,7 +236,7 @@
     ("934a85d32fbefd8c29bfb0a089835033866da6c01f446d86d36999b9d0eb2246" default)))
  '(package-selected-packages
    (quote
-    (markdown-mode julia-repl julia-mode cider clojure-mode projectile yaml-mode undo-tree python-mode php-mode persistent-soft magit exec-path-from-shell better-defaults))))
+    (verilog-mode slime evil yaml-mode tagedit smex rainbow-delimiters python-mode projectile paredit org-journal org markdown-mode magit julia-repl julia-mode json-mode ido-ubiquitous haskell-mode haskell-emacs ggtags editorconfig-custom-majormode cmake-mode clojure-mode-extra-font-locking cider auto-complete-pcmp 0blayout))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

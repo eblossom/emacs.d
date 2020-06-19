@@ -82,6 +82,7 @@
 (global-set-key (kbd "<f6>") 'revert-buffer-safely)
 (setq electric-indent-mode t)
 (setq c-tab-always-indent nil)
+(setq verilog-tab-always-indent nil)
 
 (add-hook 'c-mode-common-hook
           (lambda ()
