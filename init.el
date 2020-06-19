@@ -194,13 +194,11 @@
 
 
 ;; Common Lisp support
-(load (expand-file-name "~/quicklisp/slime-helper.el"))
-
-(setq inferior-lisp-program "sbcl")
-(require 'slime-autoloads)
-(add-to-list 'slime-contribs 'slime-fancy)
-
-(global-set-key "\C-cs" 'slime-selector)
+;;(load (expand-file-name "~/quicklisp/slime-helper.el"))
+;;(setq inferior-lisp-program "sbcl")
+;;(require 'slime-autoloads)
+;;(add-to-list 'slime-contribs 'slime-fancy)
+;;(global-set-key "\C-cs" 'slime-selector)
 
 ;; use ggtags for M-. M-, C-M-.
 
