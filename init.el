@@ -132,6 +132,9 @@
 ;; a .yml file
 (add-to-list 'load-path "~/.emacs.d/vendor")
 
+;; Magit
+(global-set-key (kbd "C-x g") 'magit-status)
+(global-set-key (kbd "C-x M-g") 'magit-dispatch-popup)
 
 ;;;;
 ;; Customization
