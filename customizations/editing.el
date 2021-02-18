@@ -46,7 +46,7 @@
 ;; http://www.gnu.org/software/emacs/manual/html_node/elisp/Backup-Files.html
 ;; (setq backup-directory-alist `(("." . ,(concat user-emacs-directory
 ;;                                                "backups"))))
-(setq auto-save-default nil)
+;; (setq auto-save-default t)
 
 
 ;; comments
@@ -84,13 +84,13 @@
 (setq c-tab-always-indent nil)
 (setq verilog-tab-always-indent nil)
 
-(add-hook 'c-mode-common-hook
-          (lambda ()
-            (add-to-list 'write-file-functions 'delete-trailing-whitespace)))
+;; (add-hook 'c-mode-common-hook
+;;           (lambda ()
+;;             (add-to-list 'write-file-functions 'delete-trailing-whitespace)))
 
-(add-hook 'python-mode-hook
-          (lambda ()
-            (add-to-list 'write-file-functions 'delete-trailing-whitespace)))
+;; (add-hook 'python-mode-hook
+;;           (lambda ()
+;;             (add-to-list 'write-file-functions 'delete-trailing-whitespace)))
 
 (require 'google-c-style)
 (add-hook 'c-mode-common-hook 'google-set-c-style)
