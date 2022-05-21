@@ -42,7 +42,7 @@
     ("scala" . scala-mode))
 
 ;; Enable sbt mode for executing sbt commands
-(use-package sbt-mode
+'(use-package sbt-mode
   :commands sbt-start sbt-command
   :config
   ;; WORKAROUND: https://github.com/ensime/emacs-sbt-mode/issues/31
@@ -59,7 +59,7 @@
 (use-package flycheck
   :init (global-flycheck-mode))
 
-(use-package lsp-mode
+'(use-package lsp-mode
   ;; Optional - enable lsp-mode automatically in scala files
   :hook  (scala-mode . lsp)
          (lsp-mode . lsp-lens-mode)
@@ -78,7 +78,7 @@
 (use-package yasnippet)
 
 ;; Add company-lsp backend for metals
-(use-package company-lsp)
+'(use-package company-lsp)
 
 ;; Use the Debug Adapter Protocol for running tests and debugging
 (use-package posframe
@@ -158,7 +158,6 @@
     ggtags
     org
     julia-mode
-    julia-repl
     markdown-mode
     slime
     verilog-mode
@@ -267,6 +266,7 @@
 (require 'cmake-mode)
 (add-to-list 'auto-mode-alist '("\\CMakeLists\\.txt\\'" . cmake-mode))
 (add-to-list 'auto-mode-alist '("\\.cmake\\'" . cmake-mode))
+(setq cmake-tab-width 4)
 
 ;;----------------------------------------------------------------------------
 ;; Allow access from emacsclient
@@ -295,11 +295,6 @@
   (define-key map "\M->" nil)
   (define-key map "\M-<" nil))
 
-;; Have julia mode always use julia-repl minor mode
-(require 'julia-repl)
-(add-hook 'julia-mode-hook 'julia-repl-mode)
-
-
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -317,7 +312,7 @@
     ("934a85d32fbefd8c29bfb0a089835033866da6c01f446d86d36999b9d0eb2246" default)))
  '(package-selected-packages
    (quote
-    (ws-butler which-key-posframe ido-completing-read+ verilog-mode slime evil yaml-mode tagedit smex rainbow-delimiters python-mode projectile paredit org-journal org markdown-mode magit julia-repl julia-mode json-mode ido-ubiquitous haskell-mode haskell-emacs ggtags editorconfig-custom-majormode cmake-mode clojure-mode-extra-font-locking cider auto-complete-pcmp 0blayout))))
+    (ws-butler which-key-posframe ido-completing-read+ verilog-mode slime evil yaml-mode tagedit smex rainbow-delimiters python-mode projectile paredit org-journal org markdown-mode magit json-mode ido-ubiquitous haskell-mode haskell-emacs ggtags editorconfig-custom-majormode cmake-mode clojure-mode-extra-font-locking cider auto-complete-pcmp 0blayout))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
