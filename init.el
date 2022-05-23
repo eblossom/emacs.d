@@ -159,7 +159,6 @@
     org
     julia-mode
     markdown-mode
-    slime
     verilog-mode
     ))
 
@@ -209,7 +208,9 @@
 ;;
 ;; Adding this code will make Emacs enter yaml mode whenever you open
 ;; a .yml file
-(add-to-list 'load-path "~/.emacs.d/vendor")
+
+;;(add-to-list 'load-path "~/.emacs.d/vendor")
+(add-to-list 'load-path (expand-file-name "vendor" user-emacs-directory))
 
 ;; Magit
 (global-set-key (kbd "C-x g") 'magit-status)
@@ -221,7 +222,9 @@
 
 ;; Add a directory to our load path so that when you `load` things
 ;; below, Emacs knows where to look for the corresponding file.
-(add-to-list 'load-path "~/.emacs.d/customizations")
+;;(add-to-list 'load-path "~/.emacs.d/customizations")
+(add-to-list 'load-path (expand-file-name "customizations" user-emacs-directory))
+
 
 ;; Sets up exec-path-from-shell so that Emacs will use the correct
 ;; environment variables
@@ -278,10 +281,14 @@
 
 ;; Common Lisp support
 ;;(load (expand-file-name "~/quicklisp/slime-helper.el"))
-;;(setq inferior-lisp-program "sbcl")
 ;;(require 'slime-autoloads)
 ;;(add-to-list 'slime-contribs 'slime-fancy)
 ;;(global-set-key "\C-cs" 'slime-selector)
+
+;; Use Sly instead of slime
+(setq inferior-lisp-program "sbcl")
+(use-package sly)
+
 
 ;; use ggtags for M-. M-, C-M-.
 
@@ -306,13 +313,11 @@
  '(ansi-color-names-vector
    ["#2d3743" "#ff4242" "#74af68" "#dbdb95" "#34cae2" "#008b8b" "#00ede1" "#e1e1e0"])
  '(coffee-tab-width 2)
- '(custom-enabled-themes (quote (misterioso)))
+ '(custom-enabled-themes '(misterioso))
  '(custom-safe-themes
-   (quote
-    ("934a85d32fbefd8c29bfb0a089835033866da6c01f446d86d36999b9d0eb2246" default)))
+   '("934a85d32fbefd8c29bfb0a089835033866da6c01f446d86d36999b9d0eb2246" default))
  '(package-selected-packages
-   (quote
-    (ws-butler which-key-posframe ido-completing-read+ verilog-mode slime evil yaml-mode tagedit smex rainbow-delimiters python-mode projectile paredit org-journal org markdown-mode magit json-mode ido-ubiquitous haskell-mode haskell-emacs ggtags editorconfig-custom-majormode cmake-mode clojure-mode-extra-font-locking cider auto-complete-pcmp 0blayout))))
+   '(ws-butler which-key-posframe ido-completing-read+ verilog-mode evil yaml-mode tagedit smex rainbow-delimiters python-mode projectile paredit org-journal org markdown-mode magit json-mode ido-ubiquitous haskell-mode haskell-emacs ggtags editorconfig-custom-majormode cmake-mode clojure-mode-extra-font-locking cider auto-complete-pcmp 0blayout)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
