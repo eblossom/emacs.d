@@ -13,3 +13,6 @@ cider-history
 projectile-bookmarks.eld
 projectile.cache
 auto-save-list
+/eln-cache
+/transient
+

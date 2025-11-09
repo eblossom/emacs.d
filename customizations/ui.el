@@ -27,13 +27,13 @@
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
 (add-to-list 'load-path "~/.emacs.d/themes")
 ;;(load-theme 'tomorrow-night-bright t)
-(load-theme 'misterioso t)
+;;(load-theme 'misterioso t)
 
 ;; increase font size for better readability
-;;(set-face-attribute 'default nil :height 140)  ; mac
+(set-face-attribute 'default nil :height 140)  ; mac
 ;;(set-face-attribute 'default nil :height 125)  ; work
 ;;(set-face-attribute 'default nil :height 110)    ; home dell
-(set-face-attribute 'default nil :height 105)    ; home dell
+;;(set-face-attribute 'default nil :height 105)    ; home dell
 ;;(set-face-attribute 'default nil :height 100)    ; home dell
 
 ;; Uncomment the lines below by removing semicolons and play with the

@@ -155,7 +155,7 @@
 
     cmake-mode
     haskell-mode
-    ggtags
+    ;; ggtags
     org
     julia-mode
     markdown-mode
@@ -271,6 +271,9 @@
 (add-to-list 'auto-mode-alist '("\\.cmake\\'" . cmake-mode))
 (setq cmake-tab-width 4)
 
+;; flatbuffer schemas look sort of like C
+(add-to-list 'auto-mode-alist '("\\.fbs\\'" . c-mode))
+
 ;;----------------------------------------------------------------------------
 ;; Allow access from emacsclient
 ;;----------------------------------------------------------------------------
@@ -292,15 +295,21 @@
 
 ;; use ggtags for M-. M-, C-M-.
 
-(add-hook 'c-mode-common-hook
+'(add-hook 'c-mode-common-hook
           (lambda ()
-            (when (derived-mode-p 'c-mode 'c++-mode 'java-mode)
+            (when (and (derived-mode-p 'c-mode 'c++-mode 'java-mode)
+                       ; only activate ggtags if not remote
+                       (not (file-remote-p default-directory)))
               (ggtags-mode 1))))
 
 ;; undo ggtags override of M-< and M->
-'(let ((map ggtags-navigation-map))
-  (define-key map "\M->" nil)
-  (define-key map "\M-<" nil))
+(defun debork-ggtags-map ()
+  "undo ggtags override of M-> and M-<"
+  (interactive)
+  (let ((map ggtags-navigation-map))
+    (define-key map "\M->" nil)
+    (define-key map "\M-<" nil)))
+
 
 
 (custom-set-variables
@@ -311,13 +320,14 @@
  '(ansi-color-faces-vector
    [default default default italic underline success warning error])
  '(ansi-color-names-vector
-   ["#2d3743" "#ff4242" "#74af68" "#dbdb95" "#34cae2" "#008b8b" "#00ede1" "#e1e1e0"])
+   ["#2d3743" "#ff4242" "#74af68" "#dbdb95" "#34cae2" "#008b8b" "#00ede1"
+    "#e1e1e0"])
  '(coffee-tab-width 2)
  '(custom-enabled-themes '(misterioso))
  '(custom-safe-themes
-   '("934a85d32fbefd8c29bfb0a089835033866da6c01f446d86d36999b9d0eb2246" default))
- '(package-selected-packages
-   '(ws-butler which-key-posframe ido-completing-read+ verilog-mode evil yaml-mode tagedit smex rainbow-delimiters python-mode projectile paredit org-journal org markdown-mode magit json-mode ido-ubiquitous haskell-mode haskell-emacs ggtags editorconfig-custom-majormode cmake-mode clojure-mode-extra-font-locking cider auto-complete-pcmp 0blayout)))
+   '("934a85d32fbefd8c29bfb0a089835033866da6c01f446d86d36999b9d0eb2246"
+     default))
+ '(package-selected-packages nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -326,3 +336,4 @@
  )
 (put 'narrow-to-region 'disabled nil)
 (put 'set-goal-column 'disabled nil)
+(setenv "CLICOLOR" "0")                 ; kill color output from cmake
