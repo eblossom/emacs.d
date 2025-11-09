@@ -18,6 +18,12 @@
 ;; This also sets the load path.
 (package-initialize)
 
+;; Download the ELPA archive description if needed.
+;; This informs Emacs about the latest versions of all packages, and
+;; makes them available for download.
+(when (not package-archive-contents)
+  (package-refresh-contents))
+
 ;; Install use-package if not already installed
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
@@ -33,29 +39,15 @@
       auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
 
 ;; Enable nice rendering of diagnostics like compile errors.
-(use-package flycheck
+'(use-package flycheck
   :init (global-flycheck-mode))
-
-;; lsp-mode supports snippets, but in order for them to work you need to use yasnippet
-;; If you don't want to use snippets set lsp-enable-snippet to nil in your lsp-mode settings
-;;   to avoid odd behavior with snippets and indentation
-(use-package yasnippet)
-
-;; Use the Debug Adapter Protocol for running tests and debugging
-(use-package posframe
-  ;; Posframe is a pop-up tool that must be manually installed for dap-mode
-  )
 
 (use-package ws-butler
   :hook
   (prog-mode . ws-butler-mode))
 
-;; Download the ELPA archive description if needed.
-;; This informs Emacs about the latest versions of all packages, and
-;; makes them available for download.
-(when (not package-archive-contents)
-  (package-refresh-contents))
 
+;; FIXME clean up this awkward combination of use-package and package-install
 
 ;; The packages you want installed. You can also install these
 ;; manually with M-x package-install
@@ -64,17 +56,6 @@
   '(;; makes handling lisp expressions much, much easier
     ;; Cheatsheet: http://www.emacswiki.org/emacs/PareditCheatsheet
     paredit
-
-    ;; key bindings and code colorization for Clojure
-    ;; https://github.com/clojure-emacs/clojure-mode
-    clojure-mode
-
-    ;; extra syntax highlighting for clojure
-    clojure-mode-extra-font-locking
-
-    ;; integration with a Clojure REPL
-    ;; https://github.com/clojure-emacs/cider
-    cider
 
     ;; evil is your friend
     evil
@@ -132,11 +113,9 @@
 (if (eq system-type 'darwin)
     (add-to-list 'my-packages 'exec-path-from-shell))
 
-
 (dolist (p my-packages)
   (when (not (package-installed-p p))
     (package-install p)))
-
 
 ;; When on macOS: command -> meta, option -> super
 ;; This matches my normal expectation and assumes
@@ -242,14 +221,9 @@
 (use-package sly)
 
 
-;; use ggtags for M-. M-, C-M-.
-
-'(add-hook 'c-mode-common-hook
-          (lambda ()
-            (when (and (derived-mode-p 'c-mode 'c++-mode 'java-mode)
-                       ; only activate ggtags if not remote
-                       (not (file-remote-p default-directory)))
-              (ggtags-mode 1))))
+(add-hook 'python-mode-hook 'eglot-ensure)
+(add-hook 'c-mode-hook 'eglot-ensure)
+(add-hook 'c++-mode-hook 'eglot-ensure)
 
 ;; undo ggtags override of M-< and M->
 (defun debork-ggtags-map ()
@@ -258,7 +232,6 @@
   (let ((map ggtags-navigation-map))
     (define-key map "\M->" nil)
     (define-key map "\M-<" nil)))
-
 
 
 (custom-set-variables
@@ -277,6 +250,7 @@
    '("934a85d32fbefd8c29bfb0a089835033866da6c01f446d86d36999b9d0eb2246"
      default))
  '(package-selected-packages nil))
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
