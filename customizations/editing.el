@@ -27,7 +27,8 @@
 (global-set-key (kbd "C-M-s") 'isearch-forward)
 (global-set-key (kbd "C-M-r") 'isearch-backward)
 
-(global-set-key (kbd "<f7>") 'compile)
+(global-set-key (kbd "<f7>") 'project-compile)
+(setq compilation-scroll-output 'first-error)
 
 
 ;; Don't use hard tabs
@@ -44,7 +45,7 @@
 ;; Emacs can automatically create backup files. This tells Emacs to
 ;; put all backups in ~/.emacs.d/backups. More info:
 ;; http://www.gnu.org/software/emacs/manual/html_node/elisp/Backup-Files.html
-(setq backup-directory-alist `(("." . ,(concat user-emacs-directory
+'(setq backup-directory-alist `(("." . ,(concat user-emacs-directory
                                                "backups"))))
 (setq auto-save-default t)
 

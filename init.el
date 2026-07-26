@@ -47,6 +47,14 @@
   (prog-mode . ws-butler-mode))
 
 
+;;(require 'json-mode)
+'(add-hook 'json-mode-hook (lambda ()
+                             (let ((width 4))
+                              (make-local-variable 'js-indent-level)
+                              (setq js-indent-level width) ; Set indentation
+                              (make-local-variable 'tab-width)
+                              (setq tab-width width))))
+
 ;; FIXME clean up this awkward combination of use-package and package-install
 
 ;; The packages you want installed. You can also install these
@@ -83,7 +91,7 @@
     yaml-mode
     ;; php-mode
 
-    cmake-mode
+    ;; cmake-mode
     haskell-mode
     ;; ggtags
     org
@@ -196,11 +204,11 @@
 
 (require 'cmake-mode)
 (add-to-list 'auto-mode-alist '("\\CMakeLists\\.txt\\'" . cmake-mode))
-(add-to-list 'auto-mode-alist '("\\.cmake\\'" . cmake-mode))
+;;(add-to-list 'auto-mode-alist '("\\.cmake\\'" . cmake-mode))
 (setq cmake-tab-width 4)
 
 ;; flatbuffer schemas look sort of like C
-(add-to-list 'auto-mode-alist '("\\.fbs\\'" . c-mode))
+;(add-to-list 'auto-mode-alist '("\\.fbs\\'" . c-mode))
 
 ;;----------------------------------------------------------------------------
 ;; Allow access from emacsclient
@@ -221,9 +229,28 @@
 (use-package sly)
 
 
+
+;; Eglot config
+
+(require 'eglot)
+
+(defun my-disable-eglot-inlay-hints ()
+  (eglot-inlay-hints-mode -1))
+
+(add-hook 'eglot-managed-mode-hook #'my-disable-eglot-inlay-hints)
+
 (add-hook 'python-mode-hook 'eglot-ensure)
 (add-hook 'c-mode-hook 'eglot-ensure)
 (add-hook 'c++-mode-hook 'eglot-ensure)
+
+;; Set up eglot key bindings
+(define-key eglot-mode-map (kbd "C-c a") 'eglot-code-actions)
+(define-key eglot-mode-map (kbd "C-c r") 'eglot-rename)
+(define-key eglot-mode-map (kbd "C-c o") 'eglot-code-action-organize-imports)
+(define-key eglot-mode-map (kbd "C-c h") 'eldoc)
+(define-key eglot-mode-map (kbd "<f8>") 'xref-find-definitions)
+
+;; --------
 
 ;; undo ggtags override of M-< and M->
 (defun debork-ggtags-map ()
@@ -249,7 +276,12 @@
  '(custom-safe-themes
    '("934a85d32fbefd8c29bfb0a089835033866da6c01f446d86d36999b9d0eb2246"
      default))
- '(package-selected-packages nil))
+ '(package-selected-packages
+   '(cmake-mode evil flatbuffers-mode flycheck ggtags haskell-mode
+                ido-completing-read+ json-mode julia-mode lsp-metals
+                lsp-ui magit paredit projectile protobuf-mode
+                python-mode rainbow-delimiters sly smex tagedit
+                ws-butler yaml-mode yasnippet)))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
