@@ -1,9 +1,6 @@
 (require 'package)
 (add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
-(add-to-list 'package-archives '("tromey" . "https://tromey.com/elpa/") t)
-;; (add-to-list 'package-archives
-;;              '("marmalade" . "http://marmalade-repo.org/packages/") t)
 
 ;; (setq package-archives
 ;;       '(("gnu"         . "http://elpa.gnu.org/packages/")
@@ -33,10 +30,13 @@
 
 ;; Enable defer and ensure by default for use-package
 ;; Keep auto-save/backup files separate from source code:  https://github.com/scalameta/metals/issues/1027
-(setq use-package-always-defer t
+'(setq use-package-always-defer t
       use-package-always-ensure t
       backup-directory-alist `((".*" . ,temporary-file-directory))
       auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
+
+(setq use-package-always-defer t
+      use-package-always-ensure t)
 
 ;; Enable nice rendering of diagnostics like compile errors.
 '(use-package flycheck
@@ -141,6 +141,7 @@
 (add-to-list 'load-path (expand-file-name "vendor" user-emacs-directory))
 
 ;; Magit
+(require 'magit)
 (global-set-key (kbd "C-x g") 'magit-status)
 (global-set-key (kbd "C-x M-g") 'magit-dispatch-popup)
 
@@ -176,7 +177,7 @@
 (load "elisp-editing.el")
 
 ;; Langauage-specific
-(load "setup-clojure.el")
+;;(load "setup-clojure.el")
 (load "setup-js.el")
 
 ;;(require 'better-defaults)
@@ -211,19 +212,24 @@
 
 
 ;; Common Lisp support
-;;(load (expand-file-name "~/quicklisp/slime-helper.el"))
-;;(require 'slime-autoloads)
-;;(add-to-list 'slime-contribs 'slime-fancy)
-;;(global-set-key "\C-cs" 'slime-selector)
-
-;; Use Sly instead of slime
 (setq inferior-lisp-program "sbcl")
-(use-package sly)
 
+(load (expand-file-name "~/quicklisp/slime-helper.el"))
+(require 'slime-autoloads)
+(add-to-list 'slime-contribs 'slime-fancy)
+(global-set-key "\C-cs" 'slime-selector)
 
 (add-hook 'python-mode-hook 'eglot-ensure)
 (add-hook 'c-mode-hook 'eglot-ensure)
 (add-hook 'c++-mode-hook 'eglot-ensure)
+
+(require 'eglot)
+(define-key eglot-mode-map (kbd "C-c r") 'eglot-rename)
+(define-key eglot-mode-map (kbd "C-c o") 'eglot-code-action-organize-imports)
+(define-key eglot-mode-map (kbd "C-c a") 'eglot-actions)
+(define-key eglot-mode-map (kbd "C-c e") 'eglot-action-extract)
+(define-key eglot-mode-map (kbd "C-c q") 'eglot-action-quickfix)
+(define-key eglot-mode-map (kbd "C-c h") 'eldoc)
 
 ;; undo ggtags override of M-< and M->
 (defun debork-ggtags-map ()
