@@ -274,7 +274,10 @@
  '(coffee-tab-width 2)
  '(custom-enabled-themes '(misterioso))
  '(custom-safe-themes
-   '("934a85d32fbefd8c29bfb0a089835033866da6c01f446d86d36999b9d0eb2246"
+   '("9e54a6ac0051987b4296e9276eecc5dfb67fdcd620191ee553f40a9b6d943e78"
+     "1157a4055504672be1df1232bed784ba575c60ab44d8e6c7b3800ae76b42f8bd"
+     "7f1263c969f04a8e58f9441f4ba4d7fb1302243355cb9faecb55aec878a06ee9"
+     "934a85d32fbefd8c29bfb0a089835033866da6c01f446d86d36999b9d0eb2246"
      default))
  '(package-selected-packages
    '(cmake-mode evil flatbuffers-mode flycheck ggtags haskell-mode
